@@ -38,31 +38,31 @@ import Iconify from '../components/Iconify';
 
 const AddingBusiness = () => {
   const [value, setValue] = useState(5);
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState('')
-  const [mobile, setMobile] = useState("")
-  const [address, setAddress] = useState('')
-  const [leadNotes, setLeadNotes] = useState('')
-  const [leadInquiredDate, setLeadInquiredDate] = useState(null)
-  const [willDesideDate, setWillDesideDate] = useState(null)
-  const [amount, setAmount] = useState('')
-  const [noOfGuests, setNoOfGuests] = useState('')
-  const [source, setSource] = useState('')
-  const [service, setService] = useState('')
-  const [location, setLocation] = useState('')
-  const [checkInDate, setCheckInDate] = useState(null)
-  const [checkOutDate, setCheckOutDate] = useState(null)
-  const [checkInTime, setCheckInTime] = useState(null)
-  const [checkOutTime, setCheckOutTime] = useState(null)
-  const [token, setToken] = useState('')
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [address, setAddress] = useState('');
+  const [leadNotes, setLeadNotes] = useState('');
+  const [leadInquiredDate, setLeadInquiredDate] = useState(null);
+  const [willDesideDate, setWillDesideDate] = useState(null);
+  const [amount, setAmount] = useState('');
+  const [noOfGuests, setNoOfGuests] = useState('');
+  const [source, setSource] = useState('');
+  const [service, setService] = useState('');
+  const [location, setLocation] = useState('');
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [checkInTime, setCheckInTime] = useState(null);
+  const [checkOutTime, setCheckOutTime] = useState(null);
+  const [token, setToken] = useState('');
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const tok = localStorage.getItem('token')
+    const tok = localStorage.getItem('token');
     if (tok !== null || tok !== undefined) {
-      setToken(tok)
+      setToken(tok);
     }
-  }, [])
+  }, []);
 
   const navigate = useNavigate();
 
@@ -103,7 +103,7 @@ const AddingBusiness = () => {
       }
       setLeadInquiredDate(`${value.$y}-${value.$M + 1}-${value.$D}`);
     }
-  }
+  };
 
   const onChangeWillDesideDate = (value) => {
     let month;
@@ -130,7 +130,7 @@ const AddingBusiness = () => {
       }
       setWillDesideDate(`${value.$y}-${value.$M + 1}-${value.$D}`);
     }
-  }
+  };
 
   const onChangeCheckIn = (value) => {
     let month;
@@ -157,7 +157,7 @@ const AddingBusiness = () => {
       }
       setCheckInDate(`${value.$y}-${value.$M + 1}-${value.$D}`);
     }
-  }
+  };
 
   const onChangeCheckOut = (value) => {
     let month;
@@ -184,11 +184,10 @@ const AddingBusiness = () => {
       }
       setCheckOutDate(`${value.$y}-${value.$M + 1}-${value.$D}`);
     }
-  }
-
+  };
 
   const onSubmitLeadForm = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const d = {
       name,
       email,
@@ -206,12 +205,11 @@ const AddingBusiness = () => {
       checkoutTime: checkOutTime,
       checkinDate: checkInDate,
       checkoutDate: checkOutDate,
-
-    }
-    console.log(d)
+    };
+    console.log(d);
     try {
-      const { data } = await axios.post(`http://localhost:3002/api/crm/createLead/${token}`, d)
-      console.log(data)
+      const { data } = await axios.post(`http://localhost:3002/api/crm/createLead/${token}`, d);
+      console.log(data);
       if (data.success) {
         toast.success(data.msg, {
           theme: 'light',
@@ -223,18 +221,17 @@ const AddingBusiness = () => {
           draggable: true,
           progress: undefined,
         });
-        navigate('/dashboard/leads')
-        scrollToTop()
+        navigate('/dashboard/leads');
+        scrollToTop();
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
-  }
+  };
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   };
 
@@ -242,41 +239,73 @@ const AddingBusiness = () => {
     <>
       <form onSubmit={onSubmitLeadForm}>
         <ToastContainer />
-        <Grid container sx={{ padding: "20px" }}
-        // spacing={{ xs: 1, sm: 2, md: 3 }} columns={{ xs: 2, sm: 10, md: 12 }}
+        <Grid
+          container
+          sx={{ padding: '20px' }}
+          // spacing={{ xs: 1, sm: 2, md: 3 }} columns={{ xs: 2, sm: 10, md: 12 }}
         >
-          <Grid item direction={{ xs: 'column', sm: 'row' }}
-            spacing={{ xs: 1, sm: 2, md: 4 }}>
-            <Box s={12} xs={6} sx={{
-              background: "white",
-              borderRadius: "10px",
-              padding: "20px",
-              margin: "5px",
-            }}>
-              <Typography variant='h3'>Lead Profile</Typography>
-              <Box sx={{ marginTop: "20px" }}>
-                <TextField id="outlined-basic" label="Name" size='small' fullWidth
-                  onChange={(e) => setName(e.target.value)} required value={name}
+          <Grid item direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
+            <Box
+              sx={{
+                background: 'white',
+                borderRadius: '10px',
+                padding: '20px',
+                margin: '5px',
+              }}
+            >
+              <Typography variant="h3">Lead Profile</Typography>
+              <Box sx={{ marginTop: '20px' }}>
+                <TextField
+                  id="outlined-basic"
+                  label="Name"
+                  size="small"
+                  fullWidth
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  value={name}
                 />
               </Box>
-              <Box sx={{ marginTop: "20px" }}>
-                <TextField id="outlined-basic" label="Email" type='email' size='small' fullWidth
-                  onChange={(e) => setEmail(e.target.value)} value={email} required
+              <Box sx={{ marginTop: '20px' }}>
+                <TextField
+                  id="outlined-basic"
+                  label="Email"
+                  type="email"
+                  size="small"
+                  fullWidth
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  required
                 />
               </Box>
-              <Box sx={{ marginTop: "20px" }}>
-                <TextField id="outlined-basic" type='number' maxlength={10} label="Mobile" size='small' fullWidth
-                  onChange={(e) => setMobile(e.target.value)} value={mobile} required
+              <Box sx={{ marginTop: '20px' }}>
+                <TextField
+                  id="outlined-basic"
+                  type="number"
+                  maxlength={10}
+                  label="Mobile"
+                  size="small"
+                  fullWidth
+                  onChange={(e) => setMobile(e.target.value)}
+                  value={mobile}
+                  required
                 />
               </Box>
-              <Box sx={{ marginTop: "20px" }}>
-                <TextField id="outlined-basic" label="Address" fullWidth size='small' value={address}
-                  onChange={(e) => setAddress(e.target.value)} required
+              <Box sx={{ marginTop: '20px' }}>
+                <TextField
+                  id="outlined-basic"
+                  label="Address"
+                  fullWidth
+                  size="small"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  required
                 />
               </Box>
               <Box sx={{ mt: 2 }}>
                 <Box>
-                  <Typography variant='h4' disabled>Lead Notes</Typography>
+                  <Typography variant="h4" disabled>
+                    Lead Notes
+                  </Typography>
                 </Box>
                 <TextField
                   aria-label="Lead Notes"
@@ -291,8 +320,8 @@ const AddingBusiness = () => {
                       sm: 370,
                       md: 470,
                       lg: 570,
-                      xl: 670
-                    }
+                      xl: 670,
+                    },
                   }}
                   // style={{ width: '51ch' }}
                   onChange={(e) => setLeadNotes(e.target.value)}
@@ -301,8 +330,7 @@ const AddingBusiness = () => {
             </Box>
           </Grid>
 
-
-          <Grid item direction={{ xs: 'column', sm: 'row' }}
+          {/* <Grid item direction={{ xs: 'column', sm: 'row' }}
             spacing={{ xs: 1, sm: 2, md: 4 }} >
             <Box s={12} xs={6} sx={{
               background: "white",
@@ -377,20 +405,25 @@ const AddingBusiness = () => {
                 </FormControl>
               </Box>
             </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
-        <Grid container spacing={2} sx={{ padding: "20px" }}>
+        <Grid container spacing={2} sx={{ padding: '20px' }}>
           <Grid item xs={12}>
-            <Box s={12} sx={{
-              background: "white",
-              borderRadius: "10px",
-              padding: "20px",
-              margin: "5px"
-            }}>
+            <Box
+              s={12}
+              sx={{
+                background: 'white',
+                borderRadius: '10px',
+                padding: '20px',
+                margin: '5px',
+              }}
+            >
               <Box>
-                <Typography variant='h4' disabled>Schedule</Typography>
+                <Typography variant="h4" disabled>
+                  Schedule
+                </Typography>
               </Box>
-              <Box sx={{ marginTop: "20px" }}>
+              <Box sx={{ marginTop: '20px' }}>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Service</InputLabel>
                   <Select
@@ -407,13 +440,18 @@ const AddingBusiness = () => {
                   </Select>
                 </FormControl>
               </Box>
-              <Box sx={{ marginTop: "20px" }}>
-                <TextField id="outlined-basic" label="Location" fullWidth required
+              <Box sx={{ marginTop: '20px' }}>
+                <TextField
+                  id="outlined-basic"
+                  label="Location"
+                  fullWidth
+                  required
                   onChange={(e) => setLocation(e.target.value)}
                 />
               </Box>
 
-              <Stack sx={{ marginTop: "20px", justifyContent: 'space-between' }}
+              <Stack
+                sx={{ marginTop: '20px', justifyContent: 'space-between' }}
                 direction={{ xs: 'column', sm: 'row' }}
                 spacing={{ xs: 1, sm: 2, md: 4 }}
               >
@@ -483,8 +521,10 @@ const AddingBusiness = () => {
             </Box>
           </Grid>
         </Grid>
-        <Box sx={{ margin: "25px" }}>
-          <Button fullWidth type='submit' variant="contained">Submit</Button>
+        <Box sx={{ margin: '25px' }}>
+          <Button fullWidth type="submit" variant="contained">
+            Submit
+          </Button>
         </Box>
       </form>
     </>

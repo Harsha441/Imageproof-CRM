@@ -55,8 +55,8 @@ export default function LoginForm() {
             progress: undefined,
           });
 
-          const admin = JSON.stringify(data.admin);
-          localStorage.setItem('admin', admin);
+          const photographer = JSON.stringify(data.photographer);
+          localStorage.setItem('photographer', photographer);
           localStorage.setItem('token', data.token);
           window.location.reload(true);
         } else {
